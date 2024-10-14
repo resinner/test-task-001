@@ -58,5 +58,54 @@ const paragraph = document.getElementById("missingParagraph");
           }, 1500);
          //=====================================================================================================
         });
-
 //==============================================================================================================
+
+
+//завдання 4 ====================================================================================================
+const items = document.querySelectorAll(".item");
+const columns = document.querySelectorAll(".column");
+const boxes = document.querySelectorAll(".blue-box");
+let draggedItem = null;
+ 
+//завдання 3 ====================================================================================================
+  function changeColors() {
+    boxes.forEach((box) => {
+      box.style.backgroundColor = getRandomColor();
+    });
+  }
+//===============================================================================================================
+
+ items.forEach((item) => {
+   item.addEventListener("dragstart", () => {
+     draggedItem = item;
+     setTimeout(() => (item.style.display = "none"), 0);
+   });
+
+   item.addEventListener("dragend", () => {
+     setTimeout(() => {
+       draggedItem.style.display = "block";
+       draggedItem = null;
+       changeColors(); 
+     }, 0);
+   });
+ });
+
+
+ columns.forEach((column) => {
+   column.addEventListener("dragover", (e) => {
+     e.preventDefault();
+     column.classList.add("drag-over");
+   });
+
+   column.addEventListener("dragleave", () => {
+     column.classList.remove("drag-over");
+   });
+
+   column.addEventListener("drop", () => {
+     column.classList.remove("drag-over");
+     if (draggedItem) {
+       column.appendChild(draggedItem);
+     }
+   });
+ });
+ //================================================================================================================
